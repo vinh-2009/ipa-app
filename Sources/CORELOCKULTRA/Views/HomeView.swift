@@ -139,11 +139,10 @@ struct HomeView: View {
             Button(action: {
                 // Open Game via URL Scheme
                 if let url = URL(string: appState.selectedGame.urlScheme) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    } else {
-                        // Fallback or alert
-                        print("Cannot open URL scheme")
+                    UIApplication.shared.open(url, options: [:]) { success in
+                        if !success {
+                            print("Không thể mở game, có thể URL Scheme chưa chính xác hoặc game chưa cài đặt")
+                        }
                     }
                 }
             }) {
@@ -165,24 +164,114 @@ struct HomeView: View {
         .cornerRadius(20)
     }
     
+    @StateObject private var keyManager = KeyManager.shared
+    @State private var inputKey: String = ""
+    
     // MARK: - Key Card
     private var keyCard: some View {
-        HStack {
-            Image(systemName: "key.fill")
-                .foregroundColor(accentColor)
-            VStack(alignment: .leading) {
-                Text("Thời hạn key")
+        VStack(alignment: .leading, spacing: 15) {
+            HStack {
+                Image(systemName: "key.fill")
+                    .foregroundColor(accentColor)
+                Text("Quản lý Key")
                     .font(.headline)
                     .foregroundColor(.white)
-                Text("Demo - Hợp lệ 30 ngày")
-                    .font(.caption)
-                    .foregroundColor(.green)
+                Spacer()
+                
+                if keyManager.isValid {
+                    Text("Đã kích hoạt")
+                        .font(.caption)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.green.opacity(0.2))
+                        .foregroundColor(.green)
+                        .cornerRadius(8)
+                }
             }
-            Spacer()
+            
+            if keyManager.isValid {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Key: \(keyManager.displayCode)")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    Text("Hết hạn: \(formatDate(dateStr: keyManager.expiresAt))")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+            } else {
+                VStack(spacing: 12) {
+                    TextField("Nhập mã key của bạn...", text: $inputKey)
+                        .padding()
+                        .background(Color.black.opacity(0.3))
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
+                    
+                    Text(keyManager.message)
+                        .font(.caption)
+                        .foregroundColor(keyManager.message.contains("Lỗi") ? .red : .gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStack(spacing: 15) {
+                        Button(action: {
+                            keyManager.activateKey(key: inputKey) { _ in }
+                        }) {
+                            Text("Kích hoạt")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(accentColor)
+                                .cornerRadius(10)
+                        }
+                        
+                        Button(action: {
+                            keyManager.generateFreeKey { newKey in
+                                if let newKey = newKey {
+                                    inputKey = newKey
+                                    keyManager.message = "Đã lấy key Free. Hãy nhấn Kích hoạt."
+                                } else {
+                                    keyManager.message = "Lỗi lấy key Free"
+                                }
+                            }
+                        }) {
+                            Text("Nhận Key Free")
+                                .font(.headline)
+                                .foregroundColor(accentColor)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(accentColor.opacity(0.1))
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(accentColor, lineWidth: 1)
+                                )
+                        }
+                    }
+                }
+            }
         }
         .padding()
         .background(cardColor)
         .cornerRadius(20)
+        .onAppear {
+            keyManager.loadSavedKey()
+        }
+    }
+    
+    private func formatDate(dateStr: String?) -> String {
+        guard let dateStr = dateStr else { return "Vĩnh viễn" }
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = formatter.date(from: dateStr) ?? ISO8601DateFormatter().date(from: dateStr) {
+            let outFormatter = DateFormatter()
+            outFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            return outFormatter.string(from: date)
+        }
+        return dateStr
     }
     
     // MARK: - Optimizers Card
