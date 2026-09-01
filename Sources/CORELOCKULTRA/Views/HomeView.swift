@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct HomeView: View {
     @EnvironmentObject var appState: AppState
@@ -192,8 +193,7 @@ struct HomeView: View {
                 .foregroundColor(.white)
                 .padding(.bottom, 4)
             
-            let ids = optimizerManager.allIds
-            ForEach(ids, id: \.self) { id in
+            ForEach(optimizerManager.allIds, id: \.self) { id in
                 if let optimizer = optimizerManager.getOptimizer(id: id) {
                     OptimizerToggleRow(
                         title: optimizer.name,
