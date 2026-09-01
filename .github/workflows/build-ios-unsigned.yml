@@ -34,9 +34,9 @@ jobs:
           -scheme CORELOCKULTRA \
           -configuration Release \
           -sdk iphoneos \
-          CODE_SIGNING_ALLOWED=NO \
-          CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGN_IDENTITY="" \
+          CODE_SIGN_IDENTITY="-" \
+          CODE_SIGNING_REQUIRED=YES \
+          CODE_SIGNING_ALLOWED=YES \
           -derivedDataPath build
         
     - name: Package IPA
