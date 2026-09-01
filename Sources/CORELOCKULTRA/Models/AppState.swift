@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-enum AppStatus {
+enum AppStatus: Equatable {
     case inactive
     case active
     case error(String)
