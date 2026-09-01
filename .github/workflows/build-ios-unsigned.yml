@@ -29,20 +29,20 @@ jobs:
     - name: Build unsigned .app
       run: |
         set -o pipefail
-        xcodebuild clean build \
+        xcodebuild archive \
           -project CORELOCKULTRA.xcodeproj \
           -scheme CORELOCKULTRA \
           -configuration Release \
-          -sdk iphoneos \
-          CODE_SIGN_IDENTITY="-" \
-          CODE_SIGNING_REQUIRED=YES \
-          CODE_SIGNING_ALLOWED=YES \
-          -derivedDataPath build
+          -destination 'generic/platform=iOS' \
+          -archivePath build/CORELOCKULTRA.xcarchive \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO
         
     - name: Package IPA
       run: |
         mkdir -p Payload
-        cp -r build/Build/Products/Release-iphoneos/CORELOCKULTRA.app Payload/
+        cp -r build/CORELOCKULTRA.xcarchive/Products/Applications/CORELOCKULTRA.app Payload/
         zip -qr CORELOCK-ULTRA-unsigned.ipa Payload
         
     - name: Upload IPA Artifact
