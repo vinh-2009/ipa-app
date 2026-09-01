@@ -1,0 +1,60 @@
+name: Build iOS Unsigned IPA
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Xcode version
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - name: Install XcodeGen
+      run: brew install xcodegen
+
+    - name: Generate Xcode Project
+      run: xcodegen generate
+
+    - name: Build unsigned .app
+      run: |
+        set -o pipefail
+        xcodebuild clean build \
+          -project CORELOCKULTRA.xcodeproj \
+          -scheme CORELOCKULTRA \
+          -configuration Release \
+          -sdk iphoneos \
+          CODE_SIGNING_ALLOWED=NO \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGN_IDENTITY="" \
+          -derivedDataPath build
+        
+    - name: Package IPA
+      run: |
+        mkdir -p Payload
+        cp -r build/Build/Products/Release-iphoneos/CORELOCKULTRA.app Payload/
+        zip -qr CORELOCK-ULTRA-unsigned.ipa Payload
+        
+    - name: Upload IPA Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: CORELOCK-ULTRA-unsigned
+        path: CORELOCK-ULTRA-unsigned.ipa
+
+    - name: Upload Log on Failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-logs
+        path: |
+          build/**/*.log
