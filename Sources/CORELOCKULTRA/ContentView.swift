@@ -2,6 +2,18 @@ import SwiftUI
 import UIKit
 
 struct ContentView: View {
+    @StateObject private var keyManager = KeyManager.shared
+    
+    var body: some View {
+        if keyManager.isValid {
+            MainTabView()
+        } else {
+            LoginView()
+        }
+    }
+}
+
+struct MainTabView: View {
     @State private var selectedTab = 0
     
     // Core Colors

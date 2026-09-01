@@ -34,7 +34,7 @@ class BaseOptimizer: OptimizerFeature {
 // 1. DragSpeed
 class DragSpeedOptimizer: BaseOptimizer {
     init() {
-        super.init(id: "dragspeed", name: "DragSpeed", description: "Tối ưu tốc độ vuốt chạm nội bộ (Mô phỏng)")
+        super.init(id: "dragspeed", name: "DragSpeed", description: "Tối ưu tốc độ vuốt chạm nội bộ")
     }
 }
 

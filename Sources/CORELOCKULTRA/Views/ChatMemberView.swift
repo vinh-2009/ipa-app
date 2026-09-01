@@ -21,7 +21,7 @@ struct ChatMemberView: View {
                 .padding(.horizontal)
             
             Button(action: {
-                if let url = URL(string: "https://t.me/dntweaks") {
+                if let url = URL(string: "https://t.me/+vCp3KyhZJBZlMGE9") {
                     UIApplication.shared.open(url)
                 }
             }) {
@@ -39,7 +39,9 @@ struct ChatMemberView: View {
             .padding(.horizontal, 30)
             
             Button(action: {
-                // Open Zalo scheme or URL
+                if let url = URL(string: "https://zalo.me/g/miuatq2xhhh0tarsc3me") {
+                    UIApplication.shared.open(url)
+                }
             }) {
                 HStack {
                     Image(systemName: "bubble.left.and.bubble.right.fill")
