@@ -15,32 +15,43 @@ object OptimizerManager {
     private val modules = listOf(
         DragSpeedOptimizer(),
         TouchResponseOptimizer(),
-        FpsStabilityOptimizer()
+        FpsStabilityOptimizer(),
+        RamOptimizer(),
+        NetworkTweaks(),
+        CpuPerformance(),
+        ThermalBalance(),
+        BackgroundOptimization(),
+        GameModeOptimizer(),
+        GpuAcceleration()
     )
 
-    private val _optimizerStates = MutableStateFlow(modules.map { OptimizerState(it) })
+    private val _optimizerStates = MutableStateFlow(
+        modules.map { OptimizerState(it) }
+    )
     val optimizerStates: StateFlow<List<OptimizerState>> = _optimizerStates.asStateFlow()
 
-    suspend fun toggleOptimizer(id: String, enable: Boolean) {
-        val states = _optimizerStates.value.toMutableList()
-        val index = states.indexOfFirst { it.module.id == id }
-        if (index == -1) return
-
-        val state = states[index]
-        states[index] = state.copy(status = OptimizerStatus.APPLYING)
-        _optimizerStates.value = states
-
-        val resultStatus = if (enable) {
-            state.module.apply()
+    suspend fun toggleOptimizer(moduleId: String, isEnabled: Boolean) {
+        val currentState = _optimizerStates.value.find { it.module.id == moduleId } ?: return
+        
+        // Update state to APPLYING
+        updateState(moduleId, isEnabled, OptimizerStatus.APPLYING)
+        
+        val status = if (isEnabled) {
+            currentState.module.apply()
         } else {
-            state.module.revert()
+            currentState.module.revert()
         }
+        
+        updateState(moduleId, isEnabled, status)
+    }
 
-        val finalStates = _optimizerStates.value.toMutableList()
-        finalStates[index] = state.copy(
-            isEnabled = if (resultStatus == OptimizerStatus.SUCCESS) true else if (resultStatus == OptimizerStatus.INACTIVE) false else state.isEnabled,
-            status = resultStatus
-        )
-        _optimizerStates.value = finalStates
+    private fun updateState(moduleId: String, isEnabled: Boolean, status: OptimizerStatus) {
+        _optimizerStates.value = _optimizerStates.value.map {
+            if (it.module.id == moduleId) {
+                it.copy(isEnabled = isEnabled, status = status)
+            } else {
+                it
+            }
+        }
     }
 }

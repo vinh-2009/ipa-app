@@ -36,14 +36,14 @@ struct HomeView: View {
     // MARK: - Header Card
     private var headerCard: some View {
         VStack(spacing: 12) {
-            Image(systemName: "gamecontroller.fill") // Placeholder for Logo
+            Image("AppLogo")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 60, height: 60)
-                .foregroundColor(accentColor)
+                .frame(width: 80, height: 80)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                 .shadow(color: accentColor.opacity(0.5), radius: 10, x: 0, y: 0)
             
-            Text("CORELOCK ULTRA")
+            Text("SUPPERLOCK")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

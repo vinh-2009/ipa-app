@@ -70,7 +70,7 @@ fun HomeScreen(
                         modifier = Modifier.size(48.dp).padding(end = 8.dp)
                     )
                     Column {
-                        Text("TWEAKS CORELOCK ULTRA", color = TextWhite, fontWeight = FontWeight.Bold)
+                        Text("TWEAKS SUPPERLOCK", color = TextWhite, fontWeight = FontWeight.Bold)
                         if (isOptimizerStarted) {
                             Text("Trạng thái: Sẵn sàng", color = SuccessGreen, fontSize = 12.sp)
                         } else if (isRootAvailable) {
@@ -203,24 +203,23 @@ fun HomeScreen(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Row(
-                modifier = Modifier.padding(16.dp).fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    Text("Liên hệ Hỗ trợ", color = TextWhite, fontWeight = FontWeight.Bold)
-                    Text("Nhấn để nhận hỗ trợ", color = TextGray, fontSize = 12.sp)
-                }
+            Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+                Text("Thông tin Tác giả", color = TextWhite, fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.padding(bottom = 8.dp))
+                
+                Text("Tác Giả: Đỗ Hoàng Vinh", color = TextGray, fontSize = 14.sp, modifier = Modifier.padding(bottom = 4.dp))
+                Text("Zalo: 0967467242", color = TextGray, fontSize = 14.sp, modifier = Modifier.padding(bottom = 4.dp))
+                Text("Telegram: @shopdohoangvinh", color = TextGray, fontSize = 14.sp, modifier = Modifier.padding(bottom = 12.dp))
+                
                 Button(
                     onClick = { 
-                        val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/dntweaks"))
+                        val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://zalo.me/g/pqwgoje0r5fnqylcw9y0"))
                         context.startActivity(i)
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = SecondaryBlue),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Join", color = TextWhite)
+                    Text("Tham gia Nhóm Zalo", color = TextWhite)
                 }
             }
         }

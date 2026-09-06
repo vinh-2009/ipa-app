@@ -10,6 +10,7 @@ import com.example.corelockultra.manager.SettingsManager
 import com.example.corelockultra.manager.ShellManager
 import com.example.corelockultra.manager.ShizukuManager
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -52,6 +53,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _isRootAvailable.value = ShellManager.isRootAvailable
         }
         checkSavedKey()
+        startGameStatusChecker()
+    }
+
+    private fun startGameStatusChecker() {
+        viewModelScope.launch(Dispatchers.IO) {
+            while (true) {
+                if (hasShizukuPermission.value || _isRootAvailable.value) {
+                    val game = _selectedGame.value
+                    val result = ShellManager.executeCommand("pidof $game")
+                    _isGameRunning.value = result.isSuccess && result.getOrNull()?.isNotBlank() == true
+                }
+                delay(3000)
+            }
+        }
     }
 
     private fun checkSavedKey() {
@@ -110,6 +125,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun selectGame(packageName: String) {
         _selectedGame.value = packageName
+        // Immediate check when switching game
+        viewModelScope.launch(Dispatchers.IO) {
+            if (hasShizukuPermission.value || _isRootAvailable.value) {
+                val result = ShellManager.executeCommand("pidof $packageName")
+                _isGameRunning.value = result.isSuccess && result.getOrNull()?.isNotBlank() == true
+            }
+        }
     }
 
     fun requestShizuku(): Boolean {

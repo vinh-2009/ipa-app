@@ -19,7 +19,7 @@ struct AdminView: View {
                     Image(systemName: "person.fill")
                         .foregroundColor(.gray)
                         .frame(width: 30)
-                    Text("Tác giả: DINH DUC NAM")
+                    Text("Tác giả: Đỗ Hoàng Vinh")
                         .foregroundColor(.white)
                 }
                 
@@ -27,7 +27,7 @@ struct AdminView: View {
                     Image(systemName: "phone.fill")
                         .foregroundColor(.gray)
                         .frame(width: 30)
-                    Text("Zalo: 0395109314")
+                    Text("Zalo: 0967467242")
                         .foregroundColor(.white)
                 }
                 
@@ -35,7 +35,7 @@ struct AdminView: View {
                     Image(systemName: "paperplane.fill")
                         .foregroundColor(.gray)
                         .frame(width: 30)
-                    Text("Telegram: @dntweaks")
+                    Text("Telegram: @shopdohoangvinh")
                         .foregroundColor(.white)
                 }
             }

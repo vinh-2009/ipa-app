@@ -82,7 +82,7 @@ fun LoginScreen(viewModel: MainViewModel) {
 
             // Premium Title
             Text(
-                text = "CORELOCK ULTRA",
+                text = "SUPPERLOCK",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.ExtraBold,
                     letterSpacing = 2.sp

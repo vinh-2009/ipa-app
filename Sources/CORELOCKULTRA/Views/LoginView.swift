@@ -14,14 +14,14 @@ struct LoginView: View {
             Spacer()
             
             // Logo
-            Image(systemName: "gamecontroller.fill")
+            Image("AppLogo")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80, height: 80)
-                .foregroundColor(accentColor)
+                .frame(width: 100, height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
                 .shadow(color: accentColor.opacity(0.5), radius: 10, x: 0, y: 0)
             
-            Text("CORELOCK ULTRA")
+            Text("SUPPERLOCK")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

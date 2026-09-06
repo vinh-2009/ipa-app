@@ -26,3 +26,4 @@ targets:
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: "YES"
         INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
         INFOPLIST_KEY_LSApplicationQueriesSchemes: "freefire freefiremax"
+        INFOPLIST_KEY_CFBundleDisplayName: "SUPPERLOCK"

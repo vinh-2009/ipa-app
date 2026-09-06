@@ -26,7 +26,7 @@ class FloatingMenuService : Service() {
         
         // This is a programmatic UI since we don't have XML layout
         floatingView = TextView(this).apply {
-            text = "CORELOCK ULTRA"
+            text = "SUPPERLOCK"
             setBackgroundColor(0x99000000.toInt())
             setTextColor(0xFFFFFFFF.toInt())
             setPadding(16, 16, 16, 16)

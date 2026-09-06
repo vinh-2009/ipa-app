@@ -1,6 +1,6 @@
-# CORELOCK ULTRA (iOS)
+# SUPPERLOCK (iOS)
 
-CORELOCK ULTRA là ứng dụng iOS được thiết kế với giao diện gaming cao cấp, cung cấp tính năng tối ưu trải nghiệm người dùng (tuân thủ giới hạn của hệ điều hành iOS). 
+SUPPERLOCK là ứng dụng iOS được thiết kế với giao diện gaming cao cấp, cung cấp tính năng tối ưu trải nghiệm người dùng (tuân thủ giới hạn của hệ điều hành iOS). 
 
 Dự án này được thiết kế để có thể build hoàn toàn tự động thông qua GitHub Actions mà không cần máy tính Mac cá nhân, tạo ra file IPA Unsigned để tự sideload.
 
