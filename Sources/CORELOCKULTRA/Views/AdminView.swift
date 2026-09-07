@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 
 struct AdminView: View {
     var body: some View {
@@ -32,10 +32,10 @@ struct AdminView: View {
                 }
                 
                 HStack {
-                    Image(systemName: "paperplane.fill")
+                    Image(systemName: "person.3.fill")
                         .foregroundColor(.gray)
                         .frame(width: 30)
-                    Text("Telegram: @shopdohoangvinh")
+                    Link("Cộng đồng Zalo", destination: URL(string: "https://zalo.me/g/pqwgoje0r5fnqylcw9y0")!)
                         .foregroundColor(.white)
                 }
             }
@@ -50,3 +50,4 @@ struct AdminView: View {
         .background(Color(red: 0.05, green: 0.05, blue: 0.08).edgesIgnoringSafeArea(.all))
     }
 }
+

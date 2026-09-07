@@ -208,7 +208,6 @@ fun HomeScreen(
                 
                 Text("Tác Giả: Đỗ Hoàng Vinh", color = TextGray, fontSize = 14.sp, modifier = Modifier.padding(bottom = 4.dp))
                 Text("Zalo: 0967467242", color = TextGray, fontSize = 14.sp, modifier = Modifier.padding(bottom = 4.dp))
-                Text("Telegram: @shopdohoangvinh", color = TextGray, fontSize = 14.sp, modifier = Modifier.padding(bottom = 12.dp))
                 
                 Button(
                     onClick = { 
@@ -263,4 +262,5 @@ fun InfoCard(title: String, value: String, valueColor: Color, modifier: Modifier
         }
     }
 }
+
 
