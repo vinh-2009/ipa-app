@@ -182,22 +182,7 @@ fun LoginScreen(viewModel: MainViewModel) {
                     
                     Spacer(modifier = Modifier.height(16.dp))
                     
-                    // Get Key Button
-                    OutlinedButton(
-                        onClick = { 
-                            val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://dntweakskey.netlify.app/"))
-                            context.startActivity(i)
-                        },
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = SecondaryBlue,
-                            containerColor = SecondaryBlue.copy(alpha = 0.05f)
-                        ),
-                        border = BorderStroke(1.dp, SecondaryBlue.copy(alpha = 0.5f)),
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier.fillMaxWidth().height(54.dp)
-                    ) {
-                        Text("LẤY KEY (GET KEY)", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    }
+
                 }
             }
         }

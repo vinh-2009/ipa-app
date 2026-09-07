@@ -1,4 +1,4 @@
-package com.example.corelockultra.ui.screens
+﻿package com.example.corelockultra.ui.screens
 
 import android.content.Intent
 import android.net.Uri
@@ -263,3 +263,4 @@ fun InfoCard(title: String, value: String, valueColor: Color, modifier: Modifier
         }
     }
 }
+
